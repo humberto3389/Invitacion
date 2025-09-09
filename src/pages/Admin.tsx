@@ -5,8 +5,6 @@ import AdminUploader from '../components/AdminUploader'
 type RSVP = { name: string; email: string; phone?: string; guests: number; createdAt?: any }
 type Message = { name: string; message: string; createdAt?: any }
 
-
-
 export default function Admin() {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('adminAuthed') === 'true')
   const [pass, setPass] = useState('')
