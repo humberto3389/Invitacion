@@ -139,7 +139,7 @@ export default function Gallery() {
           el: '.custom-pagination',
           bulletClass: 'custom-bullet',
           bulletActiveClass: 'custom-bullet-active',
-          renderBullet: function (index, className) {
+          renderBullet: function (className) {
             return `<span class="${className}">
               <span class="bullet-progress"></span>
             </span>`;
