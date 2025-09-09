@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/forms";
+
+@theme {
+  --font-display: 'Playfair Display', serif;
+  --font-body: Inter, system-ui, sans-serif;
+  --color-primary-500: #5e6cad;
+  --color-gold: #d4af37;
+  --color-blush: #f6d7d4;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply text-neutral-800 antialiased;
+  /* Fondo con gradientes suaves y sutiles "blobs" */
+  background:
+    radial-gradient(1200px 1200px at -10% -20%, color-mix(in oklab, var(--color-blush) 50%, #d9d4cf) 0%, transparent 45%),
+    radial-gradient(900px 900px at 110% 0%, color-mix(in oklab, var(--color-gold) 18%, #d9d5e3) 0%, transparent 50%),
+    radial-gradient(1100px 1100px at 50% 120%, color-mix(in oklab, var(--color-primary-500) 14%, #d7d3e8) 0%, transparent 50%),
+    linear-gradient(180deg, #e0dbe8 0%, #d3cfdf 100%);
+  background-attachment: fixed, fixed, fixed, fixed;
+  background-color: #d8d3e0;
+}
