@@ -6,31 +6,17 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      format: {
-        comments: false
-      },
-      mangle: true,
-      keep_classnames: false,
-      keep_fnames: false
-    },
+    minify: 'esbuild',
+    sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('react')) {
-              return 'vendor';
-            }
-            if (id.includes('framer-motion')) {
-              return 'animations';
-            }
-            if (id.includes('swiper')) {
-              return 'gallery';
-            }
-          }
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          animations: ['framer-motion'],
+          gallery: ['swiper']
         }
       }
-    }
+    },
+    chunkSizeWarningLimit: 1000
   }
 })
