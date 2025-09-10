@@ -144,16 +144,13 @@ export default function Hero() {
         transition={{ duration: 1.8, ease: "easeOut" }}
         className="absolute inset-0 z-0"
       >
-        <video
-          src="/hero.mp4"
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label="Video de boda"
-        />
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/public/boda.jpg"
+            className="h-full w-full object-cover"
+            alt="Imagen de boda"
+          />
+        </div>
       </motion.div>
 
       {/* Overlays con gradientes */}
@@ -203,7 +200,7 @@ export default function Hero() {
               className="mt-2 font-display text-4xl sm:text-6xl lg:text-7xl font-light"
               style={{ textShadow: '0 4px 18px rgba(0,0,0,0.7)' }}
             >
-              Humbertito <span className="text-gold font-script text-6xl sm:text-8xl lg:text-9xl relative top-2">&</span> Nelida
+              Humberto <span className="text-gold font-script text-6xl sm:text-8xl lg:text-9xl relative top-2">&</span> Nelida
             </motion.h1>
             
             <motion.p 
