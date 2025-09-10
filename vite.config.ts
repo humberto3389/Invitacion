@@ -8,17 +8,27 @@ export default defineConfig({
     target: 'esnext',
     minify: 'terser',
     terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
+      format: {
+        comments: false
+      },
+      mangle: true,
+      keep_classnames: false,
+      keep_fnames: false
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'animations': ['framer-motion'],
-          'gallery': ['swiper']
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'animations';
+            }
+            if (id.includes('swiper')) {
+              return 'gallery';
+            }
+          }
         }
       }
     }
