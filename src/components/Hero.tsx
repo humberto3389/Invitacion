@@ -203,7 +203,7 @@ export default function Hero() {
               className="mt-2 font-display text-4xl sm:text-6xl lg:text-7xl font-light"
               style={{ textShadow: '0 4px 18px rgba(0,0,0,0.7)' }}
             >
-              Humberto <span className="text-gold font-script text-6xl sm:text-8xl lg:text-9xl relative top-2">&</span> Nelida
+              Humbertito <span className="text-gold font-script text-6xl sm:text-8xl lg:text-9xl relative top-2">&</span> Nelida
             </motion.h1>
             
             <motion.p 
