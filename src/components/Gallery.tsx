@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, EffectCreative, Pagination, Parallax } from 'swiper/modules'
+import { Autoplay, EffectCreative, Pagination } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
@@ -29,14 +29,28 @@ export default function Gallery() {
     }
 
     async function getSignedUrls(paths: string[]) {
+      // Procesar en lotes de 5 para no sobrecargar
       const results: Photo[] = []
-      for (const p of paths) {
-        const { data, error } = await supabase.storage.from('gallery').createSignedUrl(p, 60 * 60 * 12)
-        if (error) { 
-          console.error('signed url error', error); 
-          continue 
+      const batchSize = 5
+      for (let i = 0; i < paths.length; i += batchSize) {
+        const batch = paths.slice(i, i + batchSize)
+        const promises = batch.map(p => 
+          supabase.storage.from('gallery').createSignedUrl(p, 60 * 60 * 12)
+            .then(({data, error}) => {
+              if (error) {
+                console.error('signed url error', error)
+                return null
+              }
+              return { name: p, publicUrl: data.signedUrl }
+            })
+        )
+        const batchResults = await Promise.all(promises)
+        results.push(...batchResults.filter((r): r is Photo => r !== null))
+        
+        // Pequeña pausa entre lotes para no sobrecargar
+        if (i + batchSize < paths.length) {
+          await new Promise(resolve => setTimeout(resolve, 100))
         }
-        results.push({ name: p, publicUrl: data.signedUrl })
       }
       return results
     }
@@ -113,27 +127,26 @@ export default function Gallery() {
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-gold/5 to-rose-500/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       <Swiper
-        modules={[Autoplay, EffectCreative, Pagination, Parallax]}
+        modules={[Autoplay, EffectCreative, Pagination]}
         effect={'creative'}
         creativeEffect={{
           prev: {
-            shadow: true,
-            translate: ['-120%', 0, -500],
+            shadow: false,
+            translate: ['-100%', 0, -200],
           },
           next: {
-            shadow: true,
-            translate: ['120%', 0, -500],
+            shadow: false,
+            translate: ['100%', 0, -200],
           },
         }}
         loop={true}
         autoplay={{
-          delay: 4500,
-          disableOnInteraction: false,
+          delay: 5000,
+          disableOnInteraction: true,
           pauseOnMouseEnter: true,
-          waitForTransition: true,
         }}
-        speed={1000}
-        parallax={true}
+        speed={800}
+        watchSlidesProgress={true}
         pagination={{
           clickable: true,
           el: '.custom-pagination',
@@ -143,6 +156,20 @@ export default function Gallery() {
             return `<span class="${className}">
               <span class="bullet-progress"></span>
             </span>`;
+          }
+        }}
+        breakpoints={{
+          320: {
+            creativeEffect: {
+              prev: { translate: ['-100%', 0, -100] },
+              next: { translate: ['100%', 0, -100] }
+            }
+          },
+          640: {
+            creativeEffect: {
+              prev: { translate: ['-100%', 0, -200] },
+              next: { translate: ['100%', 0, -200] }
+            }
           }
         }}
         className="aspect-[16/9] relative"
@@ -172,35 +199,35 @@ export default function Gallery() {
             
             {/* Información de la imagen con efecto glassmorphism */}
             <div 
-              className="absolute bottom-6 left-6 z-20 bg-black/20 backdrop-blur-md rounded-2xl p-4 border border-white/10 shadow-lg transform transition-transform duration-500 hover:translate-y-[-5px]"
+              className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 z-20 bg-black/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-2 sm:p-4 border border-white/10 shadow-lg transform transition-transform duration-500 hover:translate-y-[-5px] max-w-[calc(100%-24px)]"
               data-swiper-parallax="-100"
               data-swiper-parallax-duration="800"
             >
-              <h3 className="text-white text-lg font-light mb-1">Momento especial</h3>
-              <p className="text-white/80 text-sm">Foto {i+1} de {images.length}</p>
+              <h3 className="text-white text-sm sm:text-lg font-light mb-0.5 sm:mb-1 truncate">Momento especial</h3>
+              <p className="text-white/80 text-xs sm:text-sm">Foto {i+1} de {images.length}</p>
             </div>
           </SwiperSlide>
         ))}
         
         {/* Contador personalizado con glassmorphism */}
-        <div className="absolute top-6 right-6 z-20 bg-black/30 text-white text-sm px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10">
+        <div className="absolute top-3 sm:top-6 right-3 sm:right-6 z-20 bg-black/30 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full backdrop-blur-md border border-white/10">
           <span className="swiper-pagination-current font-medium"></span> 
-          <span className="mx-1.5">/</span> 
+          <span className="mx-1">/</span> 
           <span className="swiper-pagination-total"></span>
         </div>
         
         {/* Flechas de navegación personalizadas */}
-        <div className="absolute left-6 bottom-1/2 transform translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button className="swiper-button-prev-custom bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full w-12 h-12 flex items-center justify-center border border-white/10 transition-colors duration-300">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <div className="absolute left-2 sm:left-6 bottom-1/2 transform translate-y-1/2 z-20 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+          <button className="swiper-button-prev-custom bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center border border-white/10 transition-colors duration-300">
+            <svg className="w-4 h-4 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
             </svg>
           </button>
         </div>
         
-        <div className="absolute right-6 bottom-1/2 transform translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button className="swiper-button-next-custom bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full w-12 h-12 flex items-center justify-center border border-white/10 transition-colors duration-300">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <div className="absolute right-2 sm:right-6 bottom-1/2 transform translate-y-1/2 z-20 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+          <button className="swiper-button-next-custom bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center border border-white/10 transition-colors duration-300">
+            <svg className="w-4 h-4 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
             </svg>
           </button>
