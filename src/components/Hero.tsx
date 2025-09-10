@@ -136,7 +136,7 @@ const SparkleGlints = () => {
 export default function Hero() {
 
   return (
-    <section className="relative h-screen min-h-[700px] w-full overflow-hidden" aria-label="Hero">
+    <section className="relative h-[100svh] min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] w-full overflow-hidden" aria-label="Hero">
       {/* Imagen de fondo con efecto parallax */}
       <motion.div 
         initial={{ scale: 1.2 }}
@@ -151,7 +151,7 @@ export default function Hero() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-label="Video de boda"
         />
       </motion.div>
@@ -171,12 +171,12 @@ export default function Hero() {
       <div className="absolute bottom-1/4 left-20 w-2 h-2 rounded-full bg-gold/40 animate-pulse"></div>
       <div className="absolute bottom-1/3 right-10 w-3 h-3 rounded-full bg-white/30 animate-pulse"></div>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end px-6 text-center text-white pb-24 md:pb-32">
+      <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end px-4 sm:px-6 text-center text-white pb-16 sm:pb-24 md:pb-32">
         <motion.div 
           initial={{ y: 50, opacity: 0, scale: 0.95 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative"
+          className="relative w-full"
         >
           {/* Halo radial sutil detrás del texto, sin caja visible */}
           <div className="pointer-events-none absolute inset-0 -z-10">

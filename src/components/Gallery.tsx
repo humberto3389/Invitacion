@@ -162,8 +162,11 @@ export default function Gallery() {
             >
               <img 
                 src={p.publicUrl} 
-                alt={p.name} 
-                className="h-full w-full object-cover transform transition-transform duration-700 group-hover:scale-105" 
+                alt={p.name}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transform transition-transform duration-700 group-hover:scale-105 sm:group-hover:scale-105" 
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
               />
             </div>
             

@@ -18,13 +18,13 @@ export default function App() {
         <Hero />
       </header>
 
-      <main className="mx-auto max-w-5xl px-6">
-        <section id="cuenta-regresiva" className="py-16 border-t border-neutral-100">
+      <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <section id="cuenta-regresiva" className="py-8 sm:py-12 lg:py-16 border-t border-neutral-100">
           <SectionTitle>Cuenta regresiva</SectionTitle>
           <Countdown date="2026-01-24T18:00:00" />
         </section>
 
-        <section id="galeria" className="py-16 border-t border-neutral-100">
+        <section id="galeria" className="py-8 sm:py-12 lg:py-16 border-t border-neutral-100">
           <SectionTitle>Galería</SectionTitle>
           <Gallery />
         </section>
