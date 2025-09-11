@@ -1,39 +1,33 @@
 import { motion } from 'framer-motion'
 
-// Componente de partículas para el fondo
+// Componente de partículas optimizado (solo 6 partículas)
 const FloatingParticles = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(25)].map((_, i) => (
+      {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-white/5"
+          className="absolute rounded-full bg-white/10"
           initial={{
             x: Math.random() * 100 + 'vw',
             y: Math.random() * 100 + 'vh',
-            scale: Math.random() * 0.7 + 0.3,
-            opacity: Math.random() * 0.3 + 0.1,
+            scale: 0.5,
+            opacity: 0.2,
           }}
           animate={{
-            x: [
-              Math.random() * 100 + 'vw',
-              Math.random() * 100 + 'vw',
-              Math.random() * 100 + 'vw',
-            ],
             y: [
-              Math.random() * 100 + 'vh',
               Math.random() * 100 + 'vh',
               Math.random() * 100 + 'vh',
             ],
           }}
           transition={{
-            duration: Math.random() * 40 + 20,
+            duration: 30 + Math.random() * 20,
             repeat: Infinity,
             ease: "linear",
           }}
           style={{
-            width: Math.random() * 20 + 5 + 'px',
-            height: Math.random() * 20 + 5 + 'px',
+            width: '12px',
+            height: '12px',
           }}
         />
       ))}
@@ -41,90 +35,38 @@ const FloatingParticles = () => {
   )
 }
 
-// Componente de efecto de confeti sutil
-const SubtleConfetti = () => {
-  const confetti = [...Array(15)]
-  
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {confetti.map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute"
-          initial={{
-            x: Math.random() * 100 + 'vw',
-            y: -50,
-            rotate: Math.random() * 360,
-            opacity: 0,
-          }}
-          animate={{
-            y: '100vh',
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: Math.random() * 5 + 3,
-            delay: Math.random() * 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          style={{
-            width: '8px',
-            height: '8px',
-            background: ['#FFD700', '#FF6B6B', '#4ECDC4', '#C9A0DC', '#FFFFFF'][i % 5],
-            borderRadius: i % 2 === 0 ? '50%' : '2px',
-          }}
-        />
-      ))}
-    </div>
-  )
-}
 
-// Destellos elegantes (glints) con animación sutil
+// Destellos minimalistas (solo 4 elementos)
 const SparkleGlints = () => {
-  const glints = [...Array(36)]
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {glints.map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute"
           initial={{
-            x: Math.random() * 100 + 'vw',
-            y: Math.random() * 100 + 'vh',
-            scale: 0.7 + Math.random() * 1.1,
-            rotate: Math.random() * 360,
+            x: 20 + i * 25 + '%',
+            y: 20 + i * 20 + '%',
             opacity: 0,
           }}
           animate={{
-            opacity: [0, 1, 0],
-            scale: [0.75, 1.2, 0.75],
-            rotate: [0, 60, 0],
+            opacity: [0, 0.6, 0],
           }}
           transition={{
-            duration: 3.2 + Math.random() * 3.5,
-            delay: Math.random() * 5,
+            duration: 4,
+            delay: i * 1.5,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
           style={{
-            width: 16 + Math.random() * 22 + 'px',
-            height: 16 + Math.random() * 22 + 'px',
-            filter: 'drop-shadow(0 0 10px rgba(255,215,130,0.5)) drop-shadow(0 0 20px rgba(255,215,130,0.25))',
+            width: '20px',
+            height: '20px',
           }}
         >
           <svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true">
-            <g>
-              <path d="M12 2 L13.2 7.5 L18 9 L13.2 10.5 L12 16 L10.8 10.5 L6 9 L10.8 7.5 Z"
-                fill="rgba(255, 245, 220, 1)"
-              />
-              <circle cx="12" cy="12" r="6" fill="url(#glow)" opacity="0.12" />
-              <defs>
-                <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="rgba(255,230,150,0.6)" />
-                  <stop offset="100%" stopColor="rgba(255,230,150,0)" />
-                </radialGradient>
-              </defs>
-            </g>
+            <path d="M12 2 L13.2 7.5 L18 9 L13.2 10.5 L12 16 L10.8 10.5 L6 9 L10.8 7.5 Z"
+              fill="rgba(255, 245, 220, 0.8)"
+            />
           </svg>
         </motion.div>
       ))}
@@ -145,9 +87,13 @@ export default function Hero() {
       >
         <div className="absolute inset-0 z-0">
           <img
-            src="/public/boda.jpg"
+            src="/boda.jpg"
             className="h-full w-full object-cover"
             alt="Imagen de boda"
+            loading="eager"
+            decoding="async"
+            width="1920"
+            height="1080"
           />
         </div>
       </motion.div>
@@ -156,9 +102,8 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70 z-1" />
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 via-transparent to-rose-900/10 z-1" />
       
-      {/* Efecto de partículas */}
+      {/* Efecto de partículas optimizado */}
       <FloatingParticles />
-      <SubtleConfetti />
       <SparkleGlints />
 
       {/* Elementos decorativos */}
