@@ -122,7 +122,7 @@ export default function Gallery() {
             translate: ['100%', 0, -200],
           },
         }}
-        loop={true}
+        loop={images.length > 1}
         autoplay={{
           delay: 5000,
           disableOnInteraction: true,
