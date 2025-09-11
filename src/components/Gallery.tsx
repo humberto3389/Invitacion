@@ -56,16 +56,44 @@ export default function Gallery() {
     async function load() {
       setLoading(true)
       try {
-        // Solo listar carpeta uploads para evitar duplicados
+        // Intentar listar tanto la raíz como la carpeta uploads
+        console.log('Intentando cargar imágenes...')
+        
+        // Primero intentar la raíz del bucket
+        const rootPaths = await listFolder('')
+        console.log('Archivos en raíz:', rootPaths)
+        
+        // Luego intentar la carpeta uploads
         const uploadPaths = await listFolder('uploads')
+        console.log('Archivos en uploads:', uploadPaths)
+        
+        // Combinar ambas listas y eliminar duplicados
+        const allPaths = [...new Set([...rootPaths, ...uploadPaths])]
+        console.log('Todos los archivos encontrados:', allPaths)
+        
         // Filtrar solo archivos de imagen válidos
-        const validImagePaths = uploadPaths.filter(path => {
+        const validImagePaths = allPaths.filter(path => {
           const ext = path.toLowerCase().split('.').pop()
-          return ext && ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(ext)
+          const isValid = ext && ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(ext)
+          console.log(`Archivo: ${path}, Extensión: ${ext}, Válido: ${isValid}`)
+          return isValid
         })
+        
+        console.log('Archivos de imagen válidos:', validImagePaths)
+        
+        if (validImagePaths.length === 0) {
+          console.log('No se encontraron archivos de imagen válidos')
+          if (!ignore) setImages([])
+          return
+        }
+        
         const photos = await getSignedUrls(validImagePaths)
+        console.log('URLs firmadas obtenidas:', photos)
+        
         // Filtrar fotos válidas con URLs
         const validPhotos = photos.filter(photo => photo && photo.publicUrl)
+        console.log('Fotos válidas finales:', validPhotos)
+        
         if (!ignore) setImages(validPhotos)
       } catch (error) {
         console.error('Error loading images:', error)
