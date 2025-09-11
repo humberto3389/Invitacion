@@ -1,9 +1,9 @@
 
-// Elementos decorativos estáticos (sin animaciones)
-const StaticDecorations = () => {
+// Elementos decorativos solo para desktop (ocultos en móviles)
+const DesktopDecorations = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Solo 3 elementos decorativos estáticos */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
+      {/* Solo visible en desktop para mejor rendimiento móvil */}
       <div className="absolute top-1/4 left-10 w-2 h-2 rounded-full bg-gold/40"></div>
       <div className="absolute top-1/3 right-16 w-2 h-2 rounded-full bg-white/30"></div>
       <div className="absolute bottom-1/3 right-10 w-2 h-2 rounded-full bg-gold/30"></div>
@@ -35,8 +35,8 @@ export default function Hero() {
       {/* Overlay simplificado para móviles */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60 z-1" />
       
-      {/* Elementos decorativos estáticos */}
-      <StaticDecorations />
+      {/* Elementos decorativos solo en desktop */}
+      <DesktopDecorations />
 
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end px-4 sm:px-6 text-center text-white pb-16 sm:pb-24 md:pb-32">
         <div className="relative w-full">
