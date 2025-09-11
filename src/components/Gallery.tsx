@@ -169,7 +169,7 @@ export default function Gallery() {
         <img
           src={images[currentIndex]?.publicUrl}
           alt={`Foto ${currentIndex + 1}`}
-          className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+          className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
           loading="lazy"
           decoding="async"
         />
@@ -197,14 +197,9 @@ export default function Gallery() {
         </svg>
       </button>
 
-      {/* Información de la imagen */}
-      <div className="absolute bottom-4 left-4 right-4 bg-black/30 backdrop-blur-md text-white p-4 rounded-2xl border border-white/20 transform transition-all duration-500">
-        <h3 className="font-brush text-xl sm:text-2xl mb-1">Momento especial</h3>
-        <p className="text-sm opacity-90">Foto {currentIndex + 1} de {images.length}</p>
-      </div>
 
       {/* Indicadores de posición */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {images.map((_, index) => (
           <button
             key={index}
@@ -236,8 +231,8 @@ export default function Gallery() {
       </button>
 
       {/* Contador en la esquina superior izquierda */}
-      <div className="absolute top-4 left-4 bg-black/30 backdrop-blur-md text-white text-sm px-3 py-1 rounded-full border border-white/20">
-        {currentIndex + 1}/{images.length}
+      <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md text-white text-sm px-4 py-2 rounded-full border border-white/20 font-medium">
+        {currentIndex + 1} / {images.length}
       </div>
     </div>
   )

@@ -2,7 +2,7 @@
 export default function Hero() {
 
   return (
-    <section className="relative h-screen w-full overflow-hidden" aria-label="Hero">
+    <section className="relative h-[70vh] sm:h-screen w-full overflow-hidden" aria-label="Hero">
       {/* Imagen de fondo con parallax y overlay elegante */}
       <div className="absolute inset-0 z-0">
         <img
@@ -21,9 +21,10 @@ export default function Hero() {
       
       {/* Elementos decorativos modernos */}
       <div className="absolute inset-0 z-1 pointer-events-none overflow-hidden">
-        {/* Círculos decorativos grandes */}
-        <div className="absolute -top-20 -right-20 w-80 h-80 bg-gold/5 rounded-full blur-3xl animate-float-1"></div>
-        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/3 rounded-full blur-3xl animate-float-2"></div>
+        {/* Círculos decorativos grandes para desktop */}
+        <div className="hidden sm:block absolute -top-20 -right-20 w-80 h-80 bg-gold/10 rounded-full blur-3xl animate-float-1"></div>
+        <div className="hidden sm:block absolute -bottom-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float-2"></div>
+        <div className="hidden sm:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-gold/3 to-rose-400/3 rounded-full blur-3xl animate-pulse-slow"></div>
         
         {/* Partículas flotantes elegantes */}
         <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-gold/60 rounded-full animate-float-3"></div>
@@ -52,8 +53,8 @@ export default function Hero() {
           {/* Nombres de los novios con tipografía especial */}
           <div className="mb-6 sm:mb-8">
             <h1 className="relative">
-              {/* Humberto con fuente elegante */}
-              <span className="block font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-wide drop-shadow-2xl mb-2 sm:mb-4">
+              {/* Humberto con fuente especial */}
+              <span className="block font-brush text-5xl sm:text-7xl lg:text-9xl font-normal text-white tracking-wide drop-shadow-2xl mb-2 sm:mb-4">
                 Humberto
               </span>
               
@@ -62,13 +63,13 @@ export default function Hero() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
                 </div>
-                <span className="relative bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full text-gold text-3xl sm:text-5xl lg:text-6xl font-light">
+                <span className="relative bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full text-gold text-4xl sm:text-6xl lg:text-8xl font-brush">
                   &
                 </span>
               </div>
               
-              {/* Nelida con fuente elegante */}
-              <span className="block font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-wide drop-shadow-2xl">
+              {/* Nelida con fuente especial */}
+              <span className="block font-brush text-5xl sm:text-7xl lg:text-9xl font-normal text-white tracking-wide drop-shadow-2xl">
                 Nelida
               </span>
             </h1>
