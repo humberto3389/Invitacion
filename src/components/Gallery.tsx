@@ -79,7 +79,7 @@ export default function Gallery() {
 
   if (loading) {
     return (
-      <div className="rounded-3xl overflow-hidden aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center">
+      <div className="rounded-3xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center">
         <div className="text-center p-8">
           <div className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full mx-auto mb-4 animate-spin" />
           <p className="text-neutral-500 font-light">Cargando galería...</p>
@@ -90,7 +90,7 @@ export default function Gallery() {
 
   if (!images.length) {
     return (
-      <div className="rounded-3xl overflow-hidden aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center relative">
+      <div className="rounded-3xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center relative">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmNWY1ZjUiIj48cGF0aCBkPSJNMzYgMzRjMC0xLjEwNC0uODk2LTItMi0ycy0yIC44OTYtMiAyIC44OTYgMiAyIDIgMi0uODk2IDItMnptLTItMTJjLTEuMTA0IDAtMiAuODk2LTIgMnMuODk2IDIgMiAyIDItLjg5NiAyLTItLjg5Ni0yLTItMnptMCA2Yy0yLjIwOSAwLTQgMS43OTEtNCA0aDhjMC0yLjIwOS0xLjc5MS00LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
         
         <div className="text-center p-8 relative z-10">
@@ -155,7 +155,7 @@ export default function Gallery() {
             }
           }
         }}
-        className="aspect-[16/9] relative"
+        className="aspect-[4/3] sm:aspect-[16/9] relative"
       >
         {/* Fondo parallax para efecto de profundidad */}
         <div slot="container-start" className="parallax-bg" data-swiper-parallax="-23%"></div>
