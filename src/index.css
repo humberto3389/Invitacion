@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/forms";
 
 @theme {
-  --font-display: 'Playfair Display', serif;
-  --font-body: Inter, system-ui, sans-serif;
+  --font-display: 'Alex Brush', cursive;
+  --font-body: 'Alex Brush', cursive;
   --color-primary-500: #5e6cad;
   --color-gold: #d4af37;
   --color-blush: #f6d7d4;

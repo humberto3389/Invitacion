@@ -34,7 +34,7 @@ export default function Countdown({ date }: { date: string }) {
     <div className="max-w-4xl mx-auto">
       {/* Título */}
       <div className="text-center mb-12">
-        <p className="text-neutral-500 font-serif">Para nuestro día especial</p>
+        <p className="text-neutral-500 font-brush">Para nuestro día especial</p>
         <div className="mx-auto mt-4 h-1 w-16 bg-gradient-to-r from-gold/70 to-rose-400/70 rounded-full"></div>
       </div>
 
@@ -52,13 +52,13 @@ export default function Countdown({ date }: { date: string }) {
               
               {/* Contenedor del número */}
               <div className="h-20 flex items-center justify-center">
-                <span className="text-5xl font-bold text-neutral-800 tabular-nums font-serif">
+                <span className="text-5xl font-bold text-neutral-800 tabular-nums font-brush">
                   {String(it.value).padStart(2, '0')}
                 </span>
               </div>
               
               {/* Etiqueta */}
-              <div className="text-neutral-600 text-sm font-medium mt-3 tracking-wider uppercase font-serif">
+              <div className="text-neutral-600 text-sm font-medium mt-3 tracking-wider uppercase font-brush">
                 {it.label}
               </div>
             </div>
@@ -68,7 +68,7 @@ export default function Countdown({ date }: { date: string }) {
 
       {/* Mensaje inspirador */}
       <div className="text-center mt-12">
-        <p className="text-neutral-500 italic font-light font-script text-lg">
+        <p className="text-neutral-500 italic font-light font-brush text-lg">
           "Cada segundo nos acerca a nuestro eterno comienzo"
         </p>
       </div>
