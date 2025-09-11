@@ -135,17 +135,33 @@ export default function BackgroundAudio({ src }: { src: string }) {
       {needsUnlock && (
         <button
           onClick={toggle}
-          className="mb-2 w-full rounded-full bg-gold px-4 py-2 text-neutral-900 shadow hover:brightness-95"
+          className="group relative bg-gold/90 backdrop-blur-md hover:bg-gold text-neutral-900 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gold-light/50"
+          title="Activar música de fondo"
         >
-          Activar sonido
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+          
+          {/* Ondas de sonido animadas */}
+          <div className="absolute -right-1 top-1/2 transform -translate-y-1/2">
+            <div className="w-1 h-1 bg-gold-dark rounded-full animate-ping" style={{animationDelay: '0s'}}></div>
+            <div className="w-1 h-2 bg-gold-dark rounded-full animate-ping absolute top-0" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-1 h-1 bg-gold-dark rounded-full animate-ping absolute top-2" style={{animationDelay: '0.4s'}}></div>
+          </div>
         </button>
       )}
       {isPlaying && (
         <button
           onClick={toggle}
-          className="rounded-full bg-neutral-900 text-white px-4 py-2 shadow hover:bg-neutral-800"
+          className="group relative bg-neutral-900/90 backdrop-blur-md hover:bg-neutral-800 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-white/20"
+          title="Pausar música"
         >
-          Pausar música
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+          
+          {/* Indicador de reproducción */}
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse border-2 border-white"></div>
         </button>
       )}
     </div>

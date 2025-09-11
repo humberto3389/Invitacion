@@ -3,17 +3,25 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen sm:h-[100svh] w-full overflow-hidden" aria-label="Hero">
-      {/* Imagen de fondo única para todos los dispositivos */}
+      {/* Imagen de fondo única para todos los dispositivos con animación suave */}
       <div className="absolute inset-0 z-0">
         <img
           src="/boda.jpg"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover animate-pulse-slow"
           alt="Imagen de boda"
           loading="eager"
           decoding="async"
           width="1920"
           height="1080"
         />
+      </div>
+      
+      {/* Elementos decorativos flotantes */}
+      <div className="absolute inset-0 z-1 pointer-events-none">
+        <div className="absolute top-20 left-10 w-2 h-2 bg-gold/30 rounded-full animate-float-1"></div>
+        <div className="absolute top-40 right-20 w-1 h-1 bg-white/40 rounded-full animate-float-2"></div>
+        <div className="absolute bottom-32 left-20 w-1.5 h-1.5 bg-gold/20 rounded-full animate-float-3"></div>
+        <div className="absolute bottom-20 right-10 w-1 h-1 bg-white/30 rounded-full animate-float-1"></div>
       </div>
 
       {/* Overlay simplificado para móviles */}
@@ -29,8 +37,8 @@ export default function Hero() {
               Nos Casamos
             </p>
             
-            <h1 className="mt-1 font-script text-3xl sm:text-6xl lg:text-7xl font-normal drop-shadow-2xl leading-tight">
-              Humberto <span className="text-gold text-4xl sm:text-8xl lg:text-9xl relative top-1">&</span> Nelida
+            <h1 className="mt-1 font-brush text-4xl sm:text-7xl lg:text-8xl font-normal drop-shadow-2xl leading-tight">
+              Humberto <span className="text-gold text-5xl sm:text-9xl lg:text-10xl relative top-1">&</span> Nelida
             </h1>
             
             <p className="mt-2 text-xs sm:text-sm uppercase tracking-[0.2em] text-white/80 font-serif drop-shadow-lg">

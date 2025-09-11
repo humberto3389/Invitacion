@@ -1,15 +1,12 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, EffectCreative, Pagination } from 'swiper/modules'
-import 'swiper/swiper-bundle.css'
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-// import { motion } from 'framer-motion' // Removido para reducir bundle size
 
 type Photo = { name: string; publicUrl: string }
 
 export default function Gallery() {
   const [images, setImages] = useState<Photo[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedImage, setSelectedImage] = useState<number | null>(null)
 
   useEffect(() => {
     let ignore = false
@@ -79,177 +76,152 @@ export default function Gallery() {
 
   if (loading) {
     return (
-      <div className="rounded-3xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center">
-        <div className="text-center p-8">
-          <div className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full mx-auto mb-4 animate-spin" />
-          <p className="text-neutral-500 font-light">Cargando galería...</p>
-        </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="aspect-square bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl animate-pulse">
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="w-8 h-8 border-2 border-gold/30 border-t-gold rounded-full animate-spin" />
+            </div>
+          </div>
+        ))}
       </div>
     )
   }
 
   if (!images.length) {
     return (
-      <div className="rounded-3xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center relative">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmNWY1ZjUiIj48cGF0aCBkPSJNMzYgMzRjMC0xLjEwNC0uODk2LTItMi0ycy0yIC44OTYtMiAyIC44OTYgMiAyIDIgMi0uODk2IDItMnptLTItMTJjLTEuMTA0IDAtMiAuODk2LTIgMnMuODk2IDIgMiAyIDItLjg5NiAyLTItLjg5Ni0yLTItMnptMCA2Yy0yLjIwOSAwLTQgMS43OTEtNCA0aDhjMC0yLjIwOS0xLjc5MS00LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
-        
-        <div className="text-center p-8 relative z-10">
-          <svg className="w-16 h-16 mx-auto text-neutral-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <div className="text-center py-16">
+        <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gold/20 to-gold/10 rounded-full flex items-center justify-center">
+          <svg className="w-12 h-12 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
           </svg>
-          <h3 className="text-lg font-medium text-neutral-600 mb-2">Galería vacía</h3>
-          <p className="text-neutral-500 font-light">Sube tus fotos en /admin</p>
         </div>
+        <h3 className="font-brush text-3xl text-neutral-600 mb-2">Galería vacía</h3>
+        <p className="text-neutral-500 font-serif">Sube tus fotos en /admin</p>
       </div>
     )
   }
 
+  const openLightbox = (index: number) => {
+    setSelectedImage(index)
+  }
+
+  const closeLightbox = () => {
+    setSelectedImage(null)
+  }
+
+  const nextImage = () => {
+    if (selectedImage !== null) {
+      setSelectedImage((selectedImage + 1) % images.length)
+    }
+  }
+
+  const prevImage = () => {
+    if (selectedImage !== null) {
+      setSelectedImage(selectedImage === 0 ? images.length - 1 : selectedImage - 1)
+    }
+  }
+
   return (
-    <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10 border border-white/30 relative group">
-      {/* Efecto de borde luminoso sutil */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-gold/5 to-rose-500/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      <Swiper
-        modules={[Autoplay, EffectCreative, Pagination]}
-        effect={'creative'}
-        creativeEffect={{
-          prev: {
-            shadow: false,
-            translate: ['-100%', 0, -200],
-          },
-          next: {
-            shadow: false,
-            translate: ['100%', 0, -200],
-          },
-        }}
-        loop={false}
-        autoplay={false}
-        speed={800}
-        watchSlidesProgress={true}
-        pagination={{
-          clickable: true,
-          el: '.custom-pagination',
-          bulletClass: 'custom-bullet',
-          bulletActiveClass: 'custom-bullet-active',
-          renderBullet: function (className) {
-            return `<span class="${className}">
-              <span class="bullet-progress"></span>
-            </span>`;
-          }
-        }}
-        breakpoints={{
-          320: {
-            creativeEffect: {
-              prev: { translate: ['-100%', 0, -100] },
-              next: { translate: ['100%', 0, -100] }
-            }
-          },
-          640: {
-            creativeEffect: {
-              prev: { translate: ['-100%', 0, -200] },
-              next: { translate: ['100%', 0, -200] }
-            }
-          }
-        }}
-        className="aspect-[4/3] md:aspect-[16/9] relative"
-      >
-        {/* Fondo parallax para efecto de profundidad */}
-        <div slot="container-start" className="parallax-bg" data-swiper-parallax="-23%"></div>
-        
-        {images.map((p, i) => (
-          <SwiperSlide key={i} className="relative">
-            {/* Overlay con gradiente suave */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10" />
+    <>
+      {/* Grid de imágenes */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {images.map((photo, index) => (
+          <div
+            key={index}
+            className="group relative aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-100 to-neutral-200 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            onClick={() => openLightbox(index)}
+          >
+            <img
+              src={photo.publicUrl}
+              alt={`Foto ${index + 1}`}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+              decoding="async"
+            />
             
-            {/* Imagen con efecto parallax */}
-            <div 
-              className="h-full w-full relative overflow-hidden"
-              data-swiper-parallax="-30%"
-            >
-              <img 
-                src={p.publicUrl} 
-                alt={p.name}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover transform transition-transform duration-700 group-hover:scale-105 sm:group-hover:scale-105" 
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
-              />
+            {/* Overlay con efecto hover */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            {/* Icono de expansión */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="bg-white/20 backdrop-blur-md rounded-full p-3 border border-white/30">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+              </div>
             </div>
             
-            {/* Información de la imagen con efecto glassmorphism */}
-            <div 
-              className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 z-20 bg-black/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-2 sm:p-4 border border-white/10 shadow-lg transform transition-transform duration-500 hover:translate-y-[-5px] max-w-[calc(100%-24px)]"
-              data-swiper-parallax="-100"
-              data-swiper-parallax-duration="800"
-            >
-              <h3 className="text-white text-sm sm:text-lg font-light mb-0.5 sm:mb-1 truncate">Momento especial</h3>
-              <p className="text-white/80 text-xs sm:text-sm">Foto {i+1} de {images.length}</p>
+            {/* Número de foto */}
+            <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-xs px-2 py-1 rounded-full border border-white/20">
+              {index + 1}
             </div>
-          </SwiperSlide>
+          </div>
         ))}
-        
-        {/* Contador personalizado con glassmorphism */}
-        <div className="absolute top-3 sm:top-6 right-3 sm:right-6 z-20 bg-black/30 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full backdrop-blur-md border border-white/10">
-          <span className="swiper-pagination-current font-medium"></span> 
-          <span className="mx-1">/</span> 
-          <span className="swiper-pagination-total"></span>
-        </div>
-        
-        {/* Flechas de navegación personalizadas */}
-        <div className="absolute left-2 sm:left-6 bottom-1/2 transform translate-y-1/2 z-20 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
-          <button className="swiper-button-prev-custom bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center border border-white/10 transition-colors duration-300">
-            <svg className="w-4 h-4 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+      </div>
+
+      {/* Lightbox Modal */}
+      {selectedImage !== null && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
+          {/* Botón cerrar */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 z-60 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors duration-200"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-        </div>
-        
-        <div className="absolute right-2 sm:right-6 bottom-1/2 transform translate-y-1/2 z-20 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
-          <button className="swiper-button-next-custom bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center border border-white/10 transition-colors duration-300">
-            <svg className="w-4 h-4 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+
+          {/* Navegación anterior */}
+          <button
+            onClick={prevImage}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-60 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors duration-200"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
+
+          {/* Navegación siguiente */}
+          <button
+            onClick={nextImage}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-60 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors duration-200"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Imagen principal */}
+          <div className="relative max-w-4xl max-h-full">
+            <img
+              src={images[selectedImage].publicUrl}
+              alt={`Foto ${selectedImage + 1}`}
+              className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+            />
+            
+            {/* Información de la imagen */}
+            <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-md text-white p-4 rounded-lg border border-white/20">
+              <h3 className="font-brush text-2xl mb-1">Momento especial</h3>
+              <p className="text-sm opacity-80">Foto {selectedImage + 1} de {images.length}</p>
+            </div>
+          </div>
+
+          {/* Indicadores de posición */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedImage(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  index === selectedImage ? 'bg-white' : 'bg-white/40 hover:bg-white/60'
+                }`}
+              />
+            ))}
+          </div>
         </div>
-      </Swiper>
-      
-      {/* Paginación personalizada con efecto de progreso */}
-      <div className="custom-pagination absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2"></div>
-      
-      {/* Estilos personalizados para la paginación */}
-      <style>{`
-        .custom-bullet {
-          width: 30px;
-          height: 4px;
-          background: rgba(255, 255, 255, 0.3);
-          border-radius: 2px;
-          overflow: hidden;
-          cursor: pointer;
-          position: relative;
-          transition: all 0.3s ease;
-          margin: 0 3px;
-        }
-        
-        .custom-bullet-active {
-          background: rgba(255, 255, 255, 0.5);
-        }
-        
-        .custom-bullet-active .bullet-progress {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 0%;
-          background: white;
-          animation: progress 4.5s linear;
-        }
-        
-        @keyframes progress {
-          0% { width: 0%; }
-          100% { width: 100%; }
-        }
-      `}</style>
-    </div>
+      )}
+    </>
   )
 }

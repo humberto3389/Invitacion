@@ -26,21 +26,21 @@ export default function App() {
           <Gallery />
         </section>
 
-        <section id="mapa" className="py-16 border-t border-neutral-100">
+        <section id="mapa" className="py-8 sm:py-16 border-t border-neutral-100">
           <SectionTitle>Ubicación</SectionTitle>
-          <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-100 flex items-center justify-center">
-            <div className="text-center p-8">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gold/20 rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="min-h-[300px] sm:aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-50 to-neutral-100 flex items-center justify-center p-6 sm:p-8 shadow-lg border border-white/50">
+            <div className="text-center max-w-md mx-auto">
+              <div className="w-20 h-20 sm:w-16 sm:h-16 mx-auto mb-6 sm:mb-4 bg-gradient-to-br from-gold/30 to-gold/10 rounded-full flex items-center justify-center shadow-inner">
+                <svg className="w-10 h-10 sm:w-8 sm:h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-neutral-700 mb-2">Iglesia San José</h3>
-              <p className="text-neutral-600 mb-4">Av. Principal 123, Ciudad</p>
+              <h3 className="font-brush text-2xl sm:text-lg text-neutral-700 mb-3 sm:mb-2">Iglesia San José</h3>
+              <p className="text-neutral-600 mb-6 sm:mb-4 text-base sm:text-sm leading-relaxed">Av. Principal 123, Ciudad</p>
               <button 
                 onClick={() => window.open('https://maps.google.com/?q=Iglesia+San+Jose', '_blank')}
-                className="bg-gold text-neutral-900 px-6 py-2 rounded-full hover:scale-105 transition-transform"
+                className="bg-gold hover:bg-gold-dark text-neutral-900 px-8 py-3 sm:px-6 sm:py-2 rounded-full hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg font-serif text-base sm:text-sm"
               >
                 Ver en Google Maps
               </button>

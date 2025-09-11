@@ -30,6 +30,7 @@ export default {
         'sans': ['Cormorant Garamond', 'Georgia', 'serif'],
         'serif': ['Cormorant Garamond', 'Georgia', 'serif'],
         'script': ['Dancing Script', 'cursive'],
+        'brush': ['Alex Brush', 'cursive'],
       },
     },
   },
