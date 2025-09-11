@@ -14,7 +14,7 @@ export default function BackgroundAudio({ src }: { src: string }) {
       loop: true, 
       volume: 0, 
       html5: true, 
-      preload: true,
+      preload: false, // Cambiar a false para cargar solo cuando sea necesario
       onplay: (id) => {
         soundIdRef.current = id // Guardar el ID del sonido
         setIsPlaying(true)

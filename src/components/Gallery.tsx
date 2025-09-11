@@ -3,7 +3,7 @@ import { Autoplay, EffectCreative, Pagination } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion' // Removido para reducir bundle size
 
 type Photo = { name: string; publicUrl: string }
 
@@ -80,29 +80,17 @@ export default function Gallery() {
   if (loading) {
     return (
       <div className="rounded-3xl overflow-hidden aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center p-8"
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-            className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full mx-auto mb-4"
-          />
+        <div className="text-center p-8">
+          <div className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full mx-auto mb-4 animate-spin" />
           <p className="text-neutral-500 font-light">Cargando galería...</p>
-        </motion.div>
+        </div>
       </div>
     )
   }
 
   if (!images.length) {
     return (
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-3xl overflow-hidden aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center relative"
-      >
+      <div className="rounded-3xl overflow-hidden aspect-[16/9] bg-gradient-to-br from-neutral-50 to-white border border-white/30 shadow-2xl shadow-black/10 grid place-items-center relative">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmNWY1ZjUiIj48cGF0aCBkPSJNMzYgMzRjMC0xLjEwNC0uODk2LTItMi0ycy0yIC44OTYtMiAyIC44OTYgMiAyIDIgMi0uODk2IDItMnptLTItMTJjLTEuMTA0IDAtMiAuODk2LTIgMnMuODk2IDIgMiAyIDItLjg5NiAyLTItLjg5Ni0yLTItMnptMCA2Yy0yLjIwOSAwLTQgMS43OTEtNCA0aDhjMC0yLjIwOS0xLjc5MS00LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
         
         <div className="text-center p-8 relative z-10">
@@ -112,17 +100,12 @@ export default function Gallery() {
           <h3 className="text-lg font-medium text-neutral-600 mb-2">Galería vacía</h3>
           <p className="text-neutral-500 font-light">Sube tus fotos en /admin</p>
         </div>
-      </motion.div>
+      </div>
     )
   }
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-      className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10 border border-white/30 relative group"
-    >
+    <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10 border border-white/30 relative group">
       {/* Efecto de borde luminoso sutil */}
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-gold/5 to-rose-500/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
@@ -271,6 +254,6 @@ export default function Gallery() {
           100% { width: 100%; }
         }
       `}</style>
-    </motion.div>
+    </div>
   )
 }
