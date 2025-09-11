@@ -122,12 +122,8 @@ export default function Gallery() {
             translate: ['100%', 0, -200],
           },
         }}
-        loop={images.length > 1}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: true,
-          pauseOnMouseEnter: true,
-        }}
+        loop={false}
+        autoplay={false}
         speed={800}
         watchSlidesProgress={true}
         pagination={{
@@ -155,7 +151,7 @@ export default function Gallery() {
             }
           }
         }}
-        className="aspect-[4/3] sm:aspect-[16/9] relative"
+        className="aspect-[4/3] md:aspect-[16/9] relative"
       >
         {/* Fondo parallax para efecto de profundidad */}
         <div slot="container-start" className="parallax-bg" data-swiper-parallax="-23%"></div>
