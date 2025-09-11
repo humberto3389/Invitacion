@@ -2,7 +2,7 @@
 export default function Hero() {
 
   return (
-    <section className="relative h-[100svh] min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] w-full overflow-hidden" aria-label="Hero">
+    <section className="relative h-[70vh] sm:h-[100svh] min-h-[400px] sm:min-h-[600px] lg:min-h-[700px] w-full overflow-hidden" aria-label="Hero">
       {/* Imagen de fondo única para todos los dispositivos */}
       <div className="absolute inset-0 z-0">
         <img

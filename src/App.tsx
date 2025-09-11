@@ -1,19 +1,16 @@
 import './index.css'
+import BackgroundAudio from './components/BackgroundAudio'
 import Countdown from './components/Countdown'
 import Gallery from './components/Gallery'
-import BackgroundAudio from './components/BackgroundAudio'
 import RSVPForm from './components/RSVPForm'
 import Guestbook from './components/Guestbook'
 import Hero from './components/Hero'
 import SectionTitle from './components/SectionTitle'
-import ParticlesBackground from './components/ParticlesBackground'
-import SnowBackground from './components/SnowBackground'
 
 export default function App() {
   return (
     <div className="min-h-screen">
-      <ParticlesBackground />
-      <SnowBackground />
+      {/* Backgrounds removidos para optimizar rendimiento */}
       <header className="relative">
         <Hero />
       </header>
@@ -31,17 +28,23 @@ export default function App() {
 
         <section id="mapa" className="py-16 border-t border-neutral-100">
           <SectionTitle>Ubicación</SectionTitle>
-          <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl">
-            <iframe
-              title="Ubicación"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086693940412!2d-122.419415!3d37.774929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ2JzMwLjgiTiAxMjLCsDI1JzA5LjkiVw!5e0!3m2!1ses!2s!4v1610000000000!5m2!1ses!2s"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
+          <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-100 flex items-center justify-center">
+            <div className="text-center p-8">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gold/20 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-neutral-700 mb-2">Iglesia San José</h3>
+              <p className="text-neutral-600 mb-4">Av. Principal 123, Ciudad</p>
+              <button 
+                onClick={() => window.open('https://maps.google.com/?q=Iglesia+San+Jose', '_blank')}
+                className="bg-gold text-neutral-900 px-6 py-2 rounded-full hover:scale-105 transition-transform"
+              >
+                Ver en Google Maps
+              </button>
+            </div>
           </div>
         </section>
 
