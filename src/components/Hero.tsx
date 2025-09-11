@@ -114,8 +114,7 @@ const SparkleGlints = () => {
         >
           <svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true">
             <g>
-              <path
-                d="M12 2 L13.2 7.5 L18 9 L13.2 10.5 L12 16 L10.8 10.5 L6 9 L10.8 7.5 Z"
+              <path d="M12 2 L13.2 7.5 L18 9 L13.2 10.5 L12 16 L10.8 10.5 L6 9 L10.8 7.5 Z"
                 fill="rgba(255, 245, 220, 1)"
               />
               <circle cx="12" cy="12" r="6" fill="url(#glow)" opacity="0.12" />
