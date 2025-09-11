@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 
 // Elementos decorativos estáticos (sin animaciones)
 const StaticDecorations = () => {
@@ -16,33 +15,31 @@ export default function Hero() {
 
   return (
     <section className="relative h-[100svh] min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] w-full overflow-hidden" aria-label="Hero">
-      {/* Imagen de fondo estática (sin animación parallax) */}
+      {/* Imagen de fondo responsive para móviles */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/boda.jpg"
-          className="h-full w-full object-cover"
-          alt="Imagen de boda"
-          loading="eager"
-          decoding="async"
-          width="1920"
-          height="1080"
-        />
+        <picture>
+          <source media="(max-width: 640px)" srcSet="/boda-mobile.jpg" />
+          <source media="(max-width: 1024px)" srcSet="/boda-tablet.jpg" />
+          <img
+            src="/boda.jpg"
+            className="h-full w-full object-cover"
+            alt="Imagen de boda"
+            loading="eager"
+            decoding="async"
+            width="1920"
+            height="1080"
+          />
+        </picture>
       </div>
 
-      {/* Overlays con gradientes */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70 z-1" />
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 via-transparent to-rose-900/10 z-1" />
+      {/* Overlay simplificado para móviles */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60 z-1" />
       
       {/* Elementos decorativos estáticos */}
       <StaticDecorations />
 
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end px-4 sm:px-6 text-center text-white pb-16 sm:pb-24 md:pb-32">
         <div className="relative w-full">
-          {/* Halo radial sutil detrás del texto, sin caja visible */}
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[900px] h-[60vh] max-h-[520px] rounded-full opacity-60"
-                 style={{ background: 'radial-gradient(closest-side, rgba(0,0,0,0.45), rgba(0,0,0,0.2) 55%, transparent 70%)' }} />
-          </div>
 
           {/* Contenido principal sin caja */}
           <div className="relative px-4 md:px-6 py-4">
